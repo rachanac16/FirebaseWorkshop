@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FirebaseWorkshop</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="clear_chat">Clear Chat</string>
+    <string name="check_results">Check Results</string>
+    <string name="response_found">You have completed your profile!!</string>
+</resources>
