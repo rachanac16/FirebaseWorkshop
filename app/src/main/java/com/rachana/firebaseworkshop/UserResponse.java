@@ -7,19 +7,17 @@ public class  UserResponse{
     private String collegeId;
     private String latitude;
     private String longitude;
-    private String photoUrl;
     private String result;
 
     public UserResponse() {
     }
 
-    public UserResponse(String name, String college, String collegeId, String latitude, String longitude, String photoUrl, String result) {
+    public UserResponse(String name, String college, String collegeId, String latitude, String longitude, String result) {
         this.name = name;
         this.college = college;
         this.collegeId = collegeId;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.photoUrl = photoUrl;
         this.result = result;
     }
 
@@ -61,14 +59,6 @@ public class  UserResponse{
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
     }
 
     public String getResult() {

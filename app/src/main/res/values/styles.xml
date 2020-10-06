@@ -15,7 +15,7 @@
     </style>
     <style name="FriendlyTextViewStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

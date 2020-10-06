@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profile_found_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Profile Found!"
+        android:gravity="center"
+        android:padding="@dimen/dimen_5" />
+    <Button
+        android:id="@+id/view_profile_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Profile"
+        android:layout_margin="@dimen/dimen_5"/>
+    <Button
+        android:id="@+id/edit_profile_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile"
+        android:layout_margin="@dimen/dimen_5"/>
+    <Button
+        android:id="@+id/delete_profile_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Profile"
+        android:layout_margin="@dimen/dimen_5"/>
+
+</LinearLayout>

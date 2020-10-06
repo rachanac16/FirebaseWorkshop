@@ -4,4 +4,6 @@
     <string name="clear_chat">Clear Chat</string>
     <string name="check_results">Check Results</string>
     <string name="response_found">You have completed your profile!!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="temp">from the fragment</string>
 </resources>
