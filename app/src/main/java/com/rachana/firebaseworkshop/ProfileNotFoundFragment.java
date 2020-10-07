@@ -3,6 +3,7 @@ package com.rachana.firebaseworkshop;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class ProfileNotFoundFragment extends Fragment {
 
     public ProfileNotFoundFragment() {
         // Required empty public constructor
+        setArguments(new Bundle());
     }
 
     public ProfileNotFoundFragment(UserResponse userR){
@@ -59,8 +61,6 @@ public class ProfileNotFoundFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -93,6 +93,14 @@ public class ProfileNotFoundFragment extends Fragment {
         submit_btn = view.findViewById(R.id.submit_btn);
         edit_btn = view.findViewById(R.id.edit_btn);
         location_btn = view.findViewById(R.id.location_btn);
+
+        if (getArguments() != null) {
+            Bundle mySavedInstance = getArguments();
+            Log.d("what", getArguments().toString());
+            Log.d("what", "miracle name: "+mySavedInstance.getString("name") );
+        }else{
+            Log.d("what", "getArguments is null");
+        }
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference profilesDatabaseReference = firebaseDatabase.getReference("profiles");
@@ -225,6 +233,7 @@ public class ProfileNotFoundFragment extends Fragment {
 //            }
 //        }
 //    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putString("name", name_et.getText().toString());

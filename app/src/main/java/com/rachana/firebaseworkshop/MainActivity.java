@@ -1,8 +1,10 @@
 package com.rachana.firebaseworkshop;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_PHOTO_PICKER =  2;
     private Uri downloadURI;
     private UserResponse userResponse;
-    private Fragment globalFragment;
-
+    private Fragment fragment;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +100,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void attachDatabaseListener() {
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-        changeFragment("profileNotFound");
+        if(fragment==null){
+            changeFragment("profileNotFound");
+        }
+        final ProgressDialog Dialog = new ProgressDialog(MainActivity.this);
+        Dialog.setMessage("Fetching Profile Details...");
+        Dialog.show();
         if(mChildEventListener==null){
             mChildEventListener = new ChildEventListener() {
                 @Override
@@ -108,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         if(mCurrentUser!=null){
                             if(snapshot.getKey().equals(mCurrentUser.getUid())){
                                 userResponse = currentUserResponse;
+//                                if(fragment.getClass().toString().contains("profileNo"))
                                 changeFragment("profileFound");
                                 Toast.makeText(MainActivity.this, "Profile found!", Toast.LENGTH_SHORT).show();
                             }
@@ -117,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(MainActivity.this, "snapshot.getkey is null or empty", Toast.LENGTH_SHORT).show();
                     }
+                    Dialog.hide();
                 }
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -136,27 +145,29 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(MainActivity.this, "snapshot.getkey is null or empty", Toast.LENGTH_SHORT).show();
                     }
+                    Dialog.hide();
                 }
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                    Dialog.hide();
                 }
                 @Override
                 public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                    Dialog.hide();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Dialog.hide();
                 }
             };
             mProfilesDatabaseReference.addChildEventListener(mChildEventListener);
-        }
 
+        }else{
+            Dialog.hide();
+        }
     }
 
     public void changeFragment(String fragmentType){
-        Fragment fragment;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (fragmentType) {
             case "profileFound":
@@ -165,8 +176,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "profileNotFound":
                 fragment = new ProfileNotFoundFragment();
-                fragmentTransaction.replace(R.id.fragment_ll, fragment);
-                break;
+                if(fragment.isAdded()){
+                    fragmentTransaction.show(fragment);
+                    Log.d("what", "showing");
+                }else{
+                    fragmentTransaction.replace(R.id.fragment_ll, fragment);
+                    Log.d("what", "not showing");
+                }
+                    break;
             case "viewProfile":
                 fragment = new ViewProfileFragment();
                 fragmentTransaction.replace(R.id.fragment_ll, fragment);
@@ -216,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         if(mAuthStateListener !=null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
-        detachDatabaseListener();
+//        detachDatabaseListener();
     }
 
     @Override
