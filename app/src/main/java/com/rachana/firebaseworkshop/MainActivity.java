@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -115,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                         if(mCurrentUser!=null){
                             if(snapshot.getKey().equals(mCurrentUser.getUid())){
                                 userResponse = currentUserResponse;
-//                                if(fragment.getClass().toString().contains("profileNo"))
                                 changeFragment("profileFound");
                                 Toast.makeText(MainActivity.this, "Profile found!", Toast.LENGTH_SHORT).show();
                             }
@@ -178,10 +176,8 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new ProfileNotFoundFragment();
                 if(fragment.isAdded()){
                     fragmentTransaction.show(fragment);
-                    Log.d("what", "showing");
                 }else{
                     fragmentTransaction.replace(R.id.fragment_ll, fragment);
-                    Log.d("what", "not showing");
                 }
                     break;
             case "viewProfile":

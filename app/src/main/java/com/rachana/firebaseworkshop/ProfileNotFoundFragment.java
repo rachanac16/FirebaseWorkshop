@@ -3,7 +3,6 @@ package com.rachana.firebaseworkshop;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileNotFoundFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileNotFoundFragment extends Fragment {
 
     private UserResponse userResponse;
@@ -96,11 +90,7 @@ public class ProfileNotFoundFragment extends Fragment {
 
         if (getArguments() != null) {
             Bundle mySavedInstance = getArguments();
-            Log.d("what", getArguments().toString());
-            Log.d("what", "miracle name: "+mySavedInstance.getString("name") );
-        }else{
-            Log.d("what", "getArguments is null");
-        }
+            }
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference profilesDatabaseReference = firebaseDatabase.getReference("profiles");
@@ -120,22 +110,6 @@ public class ProfileNotFoundFragment extends Fragment {
             submit_btn.setVisibility(View.VISIBLE);
             edit_ll.setVisibility(View.GONE);
         }
-
-//        photo_picker_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.setType("image/jpeg");
-//                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-//                startActivityForResult(Intent.createChooser(intent, "Complete action using"), 2);
-//                if(!downloadURI.equals("")){
-//                    Glide.with(photourl_iv.getContext())
-//                            .load(downloadURI)
-//                            .apply(new RequestOptions().override(600, 300))
-//                            .into(photourl_iv);
-//                }
-//            }
-//        });
 
         location_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,49 +164,6 @@ public class ProfileNotFoundFragment extends Fragment {
 
         return view;
     }
-//
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        //super method removed
-//        Log.d("what", "start");
-//        if (resultCode == -1) {
-//            Log.d("what", "in");
-//            if (requestCode == 2) {
-//                Uri photoUrl = data.getData();
-//                FirebaseStorage mFirebaseStorage;
-//                StorageReference mPhotoStorageReference;
-//                mFirebaseStorage = FirebaseStorage.getInstance();
-//                mPhotoStorageReference = mFirebaseStorage.getReference().child("profile_photos");
-//                final StorageReference photoRef = mPhotoStorageReference.child(photoUrl.getLastPathSegment());
-//
-//                UploadTask uploadTask = photoRef.putFile(photoUrl);
-//                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-//                    @Override
-//                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-//                        if (!task.isSuccessful()) {
-//                            throw task.getException();
-//                        }
-//                        // Continue with the task to get the download URL
-//                        return photoRef.getDownloadUrl();
-//                    }
-//                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Uri> task) {
-//                        if (task.isSuccessful()) {
-//
-//                            Uri downloadUri = task.getResult();
-//                            if (downloadUri != null) {
-//                                Log.d("what", downloadUri.toString());
-//                                downloadURI = downloadUri.toString();
-//                            }
-//                        } else {
-//                            Toast.makeText(getActivity(), "Couldn't Upload try again!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//            }
-//        }
-//    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
