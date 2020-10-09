@@ -139,19 +139,38 @@ public class ProfileNotFoundFragment extends Fragment {
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userReference.setValue(new UserResponse(name_et.getText().toString(),
-                        college_et.getText().toString(), collegeId_et.getText().toString(),
-                        latitude_tv_pnf.getText().toString(), longitude_tv2_pnf.getText().toString(), ""));
+                String name = name_et.getText().toString();
+                String college = college_et.getText().toString();
+                String college_id = collegeId_et.getText().toString();
+                if(name.equals("") || college.equals("") || college_id.equals("")){
+                    Toast.makeText(getActivity(), "Any field cannot be blank!", Toast.LENGTH_SHORT).show();
+                }else if(!college_id.matches("[0-9]*")){
+                    Toast.makeText(getActivity(), "Invalid ID", Toast.LENGTH_SHORT).show();
+                }else if(name.matches(".*\\d.*") || college.matches(".*\\d.*")){
+                    Toast.makeText(getActivity(), "Name or College cannot have digits", Toast.LENGTH_SHORT).show();
+                } else{
+                    userReference.setValue(new UserResponse(name, college, college_id,
+                            latitude_tv_pnf.getText().toString(), longitude_tv2_pnf.getText().toString(), ""));
+                }
             }
         });
 
         edit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserResponse userResponse = new UserResponse(name_et.getText().toString(),
-                        college_et.getText().toString(), collegeId_et.getText().toString(),
-                        latitude_tv_pnf.getText().toString(), longitude_tv2_pnf.getText().toString(), "");
-                userReference.setValue(userResponse);
+                String name = name_et.getText().toString();
+                String college = college_et.getText().toString();
+                String college_id = collegeId_et.getText().toString();
+                if(name.equals("") || college.equals("") || college_id.equals("")){
+                    Toast.makeText(getActivity(), "Any field cannot be blank!", Toast.LENGTH_SHORT).show();
+                }else if(!college_id.matches("[0-9]*")){
+                    Toast.makeText(getActivity(), "Invalid ID", Toast.LENGTH_SHORT).show();
+                }else if(name.matches(".*\\d.*") || college.matches(".*\\d.*")){
+                    Toast.makeText(getActivity(), "Name or College cannot have digits", Toast.LENGTH_SHORT).show();
+                } else{
+                    userReference.setValue(new UserResponse(name, college, college_id,
+                            latitude_tv_pnf.getText().toString(), longitude_tv2_pnf.getText().toString(), ""));
+                }
             }
         });
 

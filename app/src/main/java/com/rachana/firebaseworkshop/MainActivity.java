@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private UserResponse userResponse;
     private Fragment fragment;
     private ProgressDialog progress;
+    private boolean isDatabaseEmpty = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         mFirebaseStorage = FirebaseStorage.getInstance();
         mPhotoStorageReference = mFirebaseStorage.getReference().child("profile_photos");
+
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mProfilesDatabaseReference = mFirebaseDatabase.getReference("profiles");
 
@@ -109,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             mChildEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                    isDatabaseEmpty = false;
                     UserResponse currentUserResponse = snapshot.getValue(UserResponse.class);
                     if(snapshot.getKey()!=null && !snapshot.getKey().equals("")){
                         if(mCurrentUser!=null){
@@ -123,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(MainActivity.this, "snapshot.getkey is null or empty", Toast.LENGTH_SHORT).show();
                     }
+                    Log.d("what", "here");
                     Dialog.hide();
                 }
                 @Override
@@ -163,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Dialog.hide();
         }
+        if(isDatabaseEmpty){
+            Dialog.hide();
+        }
     }
 
     public void changeFragment(String fragmentType){
@@ -198,6 +206,9 @@ public class MainActivity extends AppCompatActivity {
         if(mChildEventListener!=null){
             mProfilesDatabaseReference.removeEventListener(mChildEventListener);
             mChildEventListener = null;
+        }
+        if(fragment!=null){
+            fragment = null;
         }
     }
 
