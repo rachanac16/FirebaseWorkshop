@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -127,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(MainActivity.this, "snapshot.getkey is null or empty", Toast.LENGTH_SHORT).show();
                     }
-                    Log.d("what", "here");
                     Dialog.hide();
                 }
                 @Override
